@@ -1,8 +1,10 @@
 # Open Elements Backend Template
 
-This repository contains a template for a backend application that can be used to build new backend applications for Open Elements.
-The template is based on [Spring Boot](https://spring.io/projects/spring-boot) and can be build by using [Maven](https://maven.apache.org/).
-The application is designed to work with a [frontend application](https://github.com/OpenElements/frontend-template).
+http://localhost:8080 <- Show all available endpoints as JSON
+http://localhost:8080/swagger-ui/index.html <- Swagger UI
+http://localhost:8080/v3/api-docs.yaml <- OpenAPI 3.0 doc
+
+ 
 
 ## Start the application
 
@@ -43,11 +45,6 @@ docker run -d -p 8080:8080 backend-template
 ```
 
 This will start the Docker container and the application will be available at `http://localhost:8080`.
-
-## API Documentation
-
-The application provides a REST API that provides some random data.
-The API is available at `http://localhost:8080/api/items`.
 
 ## Deployment
 
