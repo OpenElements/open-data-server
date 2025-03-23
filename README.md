@@ -1,10 +1,7 @@
 # Open Elements Backend Template
 
-http://localhost:8080 <- Show all available endpoints as JSON
 http://localhost:8080/swagger-ui/index.html <- Swagger UI
 http://localhost:8080/v3/api-docs.yaml <- OpenAPI 3.0 doc
-
- 
 
 ## Start the application
 
