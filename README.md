@@ -8,8 +8,6 @@ http://localhost:8080/v3/api-docs.yaml <- OpenAPI 3.0 doc
 
 A `.env` file is needed to provide a GitHub API Token. The `.env.sample` file is provided as an example.
 
-```shell
-
 The project is a Spring Boot based webservice. To run it, you need to have Java 21 installed.
 
 To run the project, you can use the following command:
