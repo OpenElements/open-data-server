@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.PrePersist;
 import java.time.ZonedDateTime;
 
 @MappedSuperclass
@@ -19,6 +20,13 @@ public abstract class AbstractEntity {
 
     @Column(nullable = false)
     private ZonedDateTime createdAt;
+
+    @PrePersist
+    public void prePersist() {
+        if (createdAt == null) {
+            createdAt = ZonedDateTime.now();
+        }
+    }
 
     public long getId() {
         return id;

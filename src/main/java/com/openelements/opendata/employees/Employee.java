@@ -10,11 +10,21 @@ public class Employee extends AbstractEntity {
     @Column(nullable = false)
     private String name;
 
+    private String gitHubUsername;
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getGitHubUsername() {
+        return gitHubUsername;
+    }
+
+    public void setGitHubUsername(String gitHubUsername) {
+        this.gitHubUsername = gitHubUsername;
     }
 }

@@ -37,7 +37,18 @@ public class EmployeeProviderService extends AbstractProviderService<EmployeeDTO
             for (JsonNode node : arrayNode) {
                 String id = node.get("id").asText();
                 String name = node.get("firstName").asText() + " " + node.get("lastName").asText();
-                EmployeeDTO dto = new EmployeeDTO(EMPLOYEE_UUID_PREFIX + id, name, ZonedDateTime.now());
+                String gitHubUsername = null;
+                if (node.has("socials")) {
+                    final JsonNode socials = node.get("socials");
+                    if (socials.isArray()) {
+                        for (JsonNode social : socials) {
+                            if (social.get("name").asText().equals("GitHub")) {
+                                gitHubUsername = social.get("link").asText().substring("https://github.com/".length());
+                            }
+                        }
+                    }
+                }
+                EmployeeDTO dto = new EmployeeDTO(EMPLOYEE_UUID_PREFIX + id, name, gitHubUsername);
                 employees.add(dto);
             }
             return employees;

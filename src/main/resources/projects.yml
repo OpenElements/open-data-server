@@ -1,0 +1,185 @@
+- name: Eclipse Adoptium
+  identifier: adoptium
+  description: TODO
+  logo: foo
+  propagate: true
+  repositories: [ adoptium/* ]
+- name: Open Elements
+  identifier: open-elements
+  description: TODO
+  logo: bar
+  propagate: true
+  repositories: [ OpenElements/* ]
+- name: openmrs
+  identifier: openmrs
+  description: TODO
+  logo: bar
+  propagate: true
+  repositories: [ openmrs/* ]
+- name: Hiero
+  identifier: hiero
+  description: Hiero, a Linux Foundation Decentralized Trust project, is an open-source, vendor-neutral distributed ledger technology. Hiero is used to build the Hedera public ledger.
+  logo: bar
+  propagate: true
+  repositories: [ hiero-ledger/* ]
+- name: Eclipse Jakarta EE
+  identifier: jakartaee
+  description: TODO
+  logo: bar
+  propagate: true
+  repositories: [ eclipse-ee4j/*, jakartaee/* ]
+- name: Humanitarian OpenStreetMap Team
+  identifier: hotosm
+  description: TODO
+  logo: bar
+  propagate: true
+  repositories: [ hotosm/* ]
+- name: ODK-X Tool Suite
+  identifier: odk-x
+  description: TODO
+  logo: bar
+  propagate: true
+  repositories: [ odk-x/* ]
+- name: Support & Care by Open Elements
+  identifier: support-and-care
+  description: TODO
+  logo: bar
+  propagate: true
+  repositories: [ support-and-care/* ]
+- name: Apache Maven
+  identifier: maven
+  description: TODO
+  logo: bar
+  propagate: true
+  repositories: [ apache/*, codehaus-plexus/* ]
+- name: Maven 3rd Party Plugins
+  identifier: maven-plugins
+  description: TODO
+  logo: bar
+  propagate: true
+  repositories: [ georgberky/dependency-update-maven-plugin, reficio/p2-maven-plugin,
+                  sparsick/maven-docker-extension, mojohaus/findbugs-maven-plugin,
+                  khmarbaise/maven-deployer-extension, jbake-org/jbake-maven-plugin,
+                  versioneye/versioneye_maven_plugin ]
+- name: Testcontainers
+  identifier: testcontainers
+  description: Testcontainers is an open source library for providing throwaway, lightweight instances of databases, message brokers, web browsers, or just about anything that ...
+  logo: bar
+  propagate: true
+  repositories: [ sparsick/testcontainers-git, testcontainers/* ]
+- name: Liquibase
+  identifier: liquibase
+  description: Liquibase is an open-source database-independent library for tracking, managing and applying database schema changes.
+  logo: bar
+  propagate: true
+  repositories: [ liquibase/* ]
+- name: docToolchain
+  identifier: doctoolchain
+  description: docToolchain is a collection of scripts that makes it easy to create and maintain powerful technical documentation.
+  logo: bar
+  propagate: true
+  repositories: [ docToolchain/* ]
+- name: resilience4j
+  identifier: resilience4j
+  description: Resilience4j is a lightweight fault tolerance library designed for functional programming.
+  logo: bar
+  propagate: true
+  repositories: [ resilience4j/resilience4j ]
+- name: Citrus Framework
+  identifier: citrus
+  description: Test framework with focus on messaging applications and Microservices.
+  logo: bar
+  propagate: true
+  repositories: [ citrusframework/* ]
+- name: Oracle Docker Images
+  identifier: oracle-docker-images
+  description: Dockerfiles to build Docker images for Oracle commercial products and Oracle sponsored open source projects.
+  logo: bar
+  propagate: true
+  repositories: [ oracle/docker-images ]
+- name: Oh My Zsh
+  identifier: oh-my-zsh
+  description: Oh My Zsh is a delightful, open source, community-driven framework for managing your Zsh configuration.
+  logo: bar
+  propagate: true
+  repositories: [ ohmyzsh/ohmyzsh ]
+- name: REST Assured
+  identifier: rest-assured
+  description: Testing and validation of REST services in Java is harder than in dynamic languages such as Ruby and Groovy. REST Assured brings the simplicity of using these languages into the Java domain.
+  logo: bar
+  propagate: true
+  repositories: [ rest-assured/rest-assured ]
+- name: Apache HttpComponents
+  identifier: httpcomponents
+  description: The Apache HttpComponents project is responsible for creating and maintaining a toolset of low level Java components focused on HTTP and associated protocols.
+  logo: bar
+  propagate: true
+  repositories: [ apache/httpcomponents-core ]
+- name: Google Web Toolkit
+  identifier: gwt
+  description: Google Web Toolkit (GWT) is an open-source set of tools that allows web developers to create and maintain JavaScript front-end applications in Java.
+  logo: bar
+  propagate: true
+  repositories: [ gwtproject/* ]
+- name: SDKMan
+  identifier: sdkman
+  description: SDKMAN is a tool for managing parallel Versions of multiple Software Development Kits on any Unix-based system.
+  logo: bar
+  propagate: true
+  repositories: [ sdkman/* ]
+- name: Salt Project
+  identifier: salt
+  description: Salt is the world's fastest, most intelligent and scalable automation engine.
+  logo: bar
+  propagate: true
+  repositories: [ saltstack/salt ]
+- name: jreleaser
+  identifier: jreleaser
+  description: JReleaser can package your application to be distributed with popular software packagers such as Homebrew, Scoop, Chocolatey, ... and create release notes.
+  logo: bar
+  propagate: true
+  repositories: [ jreleaser/jreleaser.github.io ]
+- name: Task
+  identifier: task
+  description: Task is a task runner / build tool that aims to be simpler and easier to use than, for example, GNU Make.
+  logo: bar
+  propagate: true
+  repositories: [ go-task/task ]
+- name: direnv
+  identifier: direnv
+  description: direnv is an extension for your shell. It augments existing shells with a new feature that can load and unload environment variables depending on the current directory.
+  logo: bar
+  propagate: true
+  repositories: [ direnv/direnv ]
+- name: Homebrew
+  identifier: homebrew
+  description: Homebrew is a free and open-source software package management system that simplifies the installation of software on Apple's operating system, macOS, as well as Linux.
+  logo: bar
+  propagate: true
+  repositories: [ Homebrew/homebrew-cask ]
+- name: Structr
+  identifier: structr
+  description: Structr is an integrated low-code development and runtime environment that uses a graph database.
+  logo: bar
+  propagate: true
+  repositories: [ structr/structr ]
+- name: Kubernetes
+  identifier: kubernetes
+  description: Kubernetes is an open-source container orchestration system for automating software deployment, scaling, and management.
+  logo: bar
+  propagate: true
+  repositories: [ kubernetes/minikube ]
+- name: jQAssistant
+  identifier: jqassistant
+  description: jQAssistant is an Open-Source-Tool that helps you to analyze and control the quality of your software systems.
+  logo: bar
+  propagate: true
+  repositories: [ jqassistant-plugin/*, kontext-e/jqassistant-git-plugin,
+                  jqassistant-archive/*, kontext-e/jqassistant-plugins,
+                  jQAssistant/jqassistant ]
+- name: Jenkins CI
+  identifier: jenkins
+  description: Jenkins is an open source automation server. It helps automate the parts of software development related to building, testing, and deploying, facilitating continuous integration, and continuous delivery.
+  logo: bar
+  propagate: true
+  repositories: [ jenkinsci/*, jenkins-x/* ]
