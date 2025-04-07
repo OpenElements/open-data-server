@@ -1,4 +1,6 @@
-# Open Elements Backend Template
+# Open Elements Open Data Server
+
+This is the open data server of Open Elements. The server provides data by REST endpoints.
 
 http://localhost:8080/swagger-ui/index.html <- Swagger UI
 
