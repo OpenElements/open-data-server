@@ -2,9 +2,7 @@
 
 This is the open data server of Open Elements. The server provides data by REST endpoints.
 
-http://localhost:8080/swagger-ui/index.html <- Swagger UI
-
-http://localhost:8080/v3/api-docs.yaml <- OpenAPI 3.0 doc
+Public endpoint of the server: https://open-elements-open-data.koyeb.app/swagger-ui/index.html
 
 ## Start the application
 
@@ -18,7 +16,9 @@ To run the project, you can use the following command:
 ./mvnw spring-boot:run
 ```
 
-The application will be available at `http://localhost:8080`.
+http://localhost:8080/swagger-ui/index.html <- Swagger UI
+
+http://localhost:8080/v3/api-docs.yaml <- OpenAPI 3.0 doc
 
 ## Build the application
 
