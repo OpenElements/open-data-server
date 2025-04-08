@@ -18,16 +18,18 @@ public class EmployeeProviderService extends AbstractProviderService<EmployeeDTO
 
     private final static String EMPLOYEE_UUID_PREFIX = "Employee-";
 
+    private final static String JSON_URL = "https://raw.githubusercontent.com/OpenElements/open-elements-website/refs/heads/main/data/en/team.json";
+
     @Autowired
-    public EmployeeProviderService(@NonNull UpdateEntityRepository updateRepository) {
+    public EmployeeProviderService(@NonNull final UpdateEntityRepository updateRepository) {
         super(EmployeeDTO.class, updateRepository);
     }
 
     @Override
-    public List<EmployeeDTO> getAvailableData(ZonedDateTime lastUpdate) {
-        RestClient restClient = RestClient.create();
+    public List<EmployeeDTO> getAvailableData(@NonNull final ZonedDateTime lastUpdate) {
+        final RestClient restClient = RestClient.create();
         final String jsonString = restClient.get()
-                .uri("https://raw.githubusercontent.com/OpenElements/open-elements-website/refs/heads/main/data/en/team.json")
+                .uri(JSON_URL)
                 .retrieve()
                 .body(String.class);
         try {
@@ -35,8 +37,15 @@ public class EmployeeProviderService extends AbstractProviderService<EmployeeDTO
             final ArrayNode arrayNode = (ArrayNode) jsonNode;
             final List<EmployeeDTO> employees = new ArrayList<>();
             for (JsonNode node : arrayNode) {
-                String id = node.get("id").asText();
-                String name = node.get("firstName").asText() + " " + node.get("lastName").asText();
+                final String id = node.get("id").asText();
+                final String firstName = node.get("firstName").asText();
+                final String lastName = node.get("lastName").asText();
+                final String role;
+                if (node.has("role")) {
+                    role = node.get("role").asText();
+                } else {
+                    role = null;
+                }
                 String gitHubUsername = null;
                 if (node.has("socials")) {
                     final JsonNode socials = node.get("socials");
@@ -48,11 +57,12 @@ public class EmployeeProviderService extends AbstractProviderService<EmployeeDTO
                         }
                     }
                 }
-                EmployeeDTO dto = new EmployeeDTO(EMPLOYEE_UUID_PREFIX + id, name, gitHubUsername);
+                final EmployeeDTO dto = new EmployeeDTO(EMPLOYEE_UUID_PREFIX + id, firstName, lastName, role,
+                        gitHubUsername);
                 employees.add(dto);
             }
             return employees;
-        } catch (Exception e) {
+        } catch (final Exception e) {
             throw new RuntimeException("Failed to parse JSON", e);
         }
     }

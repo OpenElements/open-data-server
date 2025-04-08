@@ -9,6 +9,7 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import org.jspecify.annotations.NonNull;
 import org.kohsuke.github.GHIssueState;
 import org.kohsuke.github.GHPullRequest;
@@ -41,8 +42,9 @@ public class PullRequestProviderService extends AbstractProviderService<PullRequ
         this.employeeService = Objects.requireNonNull(employeeService);
     }
 
+    @NonNull
     @Override
-    public List<PullRequestDTO> getAvailableData(ZonedDateTime lastUpdate) {
+    public List<PullRequestDTO> getAvailableData(@NonNull ZonedDateTime lastUpdate) {
         return employeeService.getAll().stream()
                 .filter(employee -> employee.gitHubUsername() != null)
                 .map(EmployeeDTO::gitHubUsername)
@@ -50,11 +52,15 @@ public class PullRequestProviderService extends AbstractProviderService<PullRequ
                 .toList();
     }
 
-    public List<PullRequestDTO> getAvailablePullRequestsForAuthor(String author, ZonedDateTime lastUpdate) {
+    @NonNull
+    public List<PullRequestDTO> getAvailablePullRequestsForAuthor(@NonNull final String author,
+            @NonNull final ZonedDateTime lastUpdate) {
+        Objects.requireNonNull(author, "author cannot be null");
+        Objects.requireNonNull(lastUpdate, "lastUpdate cannot be null");
         final List<PullRequestDTO> result = new ArrayList<>();
         try {
             log.info("Processing pull requests for author: {}", author);
-            GitHub github = new GitHubBuilder().withOAuthToken(gitHubToken).build();
+            final GitHub github = new GitHubBuilder().withOAuthToken(gitHubToken).build();
             final ZonedDateTime createdAfter;
             if (lastUpdate.isBefore(MIN_TIME)) {
                 createdAfter = MIN_TIME;
@@ -73,9 +79,12 @@ public class PullRequestProviderService extends AbstractProviderService<PullRequ
                 final String uuid = EMPLOYEE_UUID_PREFIX + org + "/" + repo + "/" + gitHubId;
                 final ZonedDateTime createdAt = ZonedDateTime.ofInstant(pullRequest.getCreatedAt().toInstant(),
                         ZoneOffset.UTC);
+                final ZonedDateTime lastUpdateInGitHub = Optional.of(pullRequest.getUpdatedAt())
+                        .map(date -> ZonedDateTime.ofInstant(date.toInstant(), ZoneOffset.UTC))
+                        .orElse(createdAt);
                 final String title = pullRequest.getTitle();
-                boolean open = pullRequest.getState().equals(GHIssueState.OPEN);
-                boolean merged = pullRequest.isMerged();
+                final boolean open = pullRequest.getState().equals(GHIssueState.OPEN);
+                final boolean merged = pullRequest.isMerged();
 
                 log.info("Processing pull request: {}", uuid);
 
@@ -86,13 +95,14 @@ public class PullRequestProviderService extends AbstractProviderService<PullRequ
                         gitHubId,
                         title,
                         createdAt,
+                        lastUpdateInGitHub,
                         open,
                         merged,
                         author
                 );
                 result.add(pr);
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             throw new RuntimeException("Error", e);
         }
         return result;

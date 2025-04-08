@@ -18,6 +18,7 @@ public class PullRequestEndpoint {
         this.pullRequestService = Objects.requireNonNull(pullRequestService);
     }
 
+    @NonNull
     @GetMapping(value = "/pullrequests", produces = {"application/json"})
     @Operation(summary = "Endpoint to get information about all pull requests")
     public List<PullRequestDTO> getPullRequests() {

@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.PrePersist;
 import java.time.ZonedDateTime;
+import org.jspecify.annotations.NonNull;
 
 @MappedSuperclass
 public abstract class AbstractEntity {
@@ -32,7 +33,7 @@ public abstract class AbstractEntity {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(final long id) {
         this.id = id;
     }
 
@@ -40,7 +41,7 @@ public abstract class AbstractEntity {
         return uuid;
     }
 
-    public void setUuid(String uuid) {
+    public void setUuid(@NonNull final String uuid) {
         this.uuid = uuid;
     }
 
@@ -48,7 +49,7 @@ public abstract class AbstractEntity {
         return createdAt;
     }
 
-    public void setCreatedAt(ZonedDateTime createdAt) {
+    public void setCreatedAt(@NonNull final ZonedDateTime createdAt) {
         this.createdAt = createdAt;
     }
 }

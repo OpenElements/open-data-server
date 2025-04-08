@@ -18,6 +18,7 @@ public class EmployeeEndpoint {
         this.employeeService = Objects.requireNonNull(employeeService);
     }
 
+    @NonNull
     @GetMapping(value = "/employees", produces = {"application/json"})
     @Operation(summary = "Endpoint to get information about all employees")
     public List<EmployeeDTO> getEmployees() {

@@ -16,8 +16,9 @@ public class PullRequestService extends AbstractEntityBasedService<PullRequestDT
         super(PullRequestMapper.class, PullRequest.class);
     }
 
+    @NonNull
     @Override
-    protected @NonNull EntityManager getEntityManager() {
+    protected EntityManager getEntityManager() {
         return entityManager;
     }
 }

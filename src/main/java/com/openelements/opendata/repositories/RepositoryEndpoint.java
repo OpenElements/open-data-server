@@ -18,6 +18,7 @@ public class RepositoryEndpoint {
         this.repositoryService = Objects.requireNonNull(repositoryService);
     }
 
+    @NonNull
     @GetMapping(value = "/repositories", produces = {"application/json"})
     @Operation(summary = "Endpoint to get information about all repositories")
     public List<RepositoryDTO> getPullRequests() {

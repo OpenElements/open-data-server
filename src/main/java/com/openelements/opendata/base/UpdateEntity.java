@@ -3,6 +3,7 @@ package com.openelements.opendata.base;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import java.time.ZonedDateTime;
+import org.jspecify.annotations.NonNull;
 
 @Entity
 public class UpdateEntity extends AbstractEntity {
@@ -17,7 +18,7 @@ public class UpdateEntity extends AbstractEntity {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(final @NonNull String type) {
         this.type = type;
     }
 
@@ -25,7 +26,7 @@ public class UpdateEntity extends AbstractEntity {
         return lastUpdate;
     }
 
-    public void setLastUpdate(ZonedDateTime lastUpdate) {
+    public void setLastUpdate(final @NonNull ZonedDateTime lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 }

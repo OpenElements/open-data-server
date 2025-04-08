@@ -18,8 +18,9 @@ public class ProjectService extends AbstractService<ProjectDTO> {
 
     private final static String PROJECT_UUID_PREFIX = "Project-";
 
+    @NonNull
     @Override
-    public @NonNull List<ProjectDTO> getAll() {
+    public List<ProjectDTO> getAll() {
         try {
             final List<ProjectDTO> result = new ArrayList<>();
             final ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
@@ -45,7 +46,7 @@ public class ProjectService extends AbstractService<ProjectDTO> {
                 });
             }
             return Collections.unmodifiableList(result);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             throw new RuntimeException("Error", e);
         }
     }

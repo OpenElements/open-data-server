@@ -18,6 +18,7 @@ public class ProjectEndpoint {
         this.projectService = Objects.requireNonNull(projectService);
     }
 
+    @NonNull
     @GetMapping(value = "/projects", produces = {"application/json"})
     @Operation(summary = "Endpoint to get information about all projects")
     public List<ProjectDTO> getProjects() {

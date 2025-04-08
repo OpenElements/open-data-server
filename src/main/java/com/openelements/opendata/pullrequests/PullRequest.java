@@ -4,6 +4,7 @@ import com.openelements.opendata.base.AbstractEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import java.time.ZonedDateTime;
+import org.jspecify.annotations.NonNull;
 
 @Entity
 public class PullRequest extends AbstractEntity {
@@ -32,11 +33,14 @@ public class PullRequest extends AbstractEntity {
     @Column(nullable = false)
     private ZonedDateTime createdAtInGitHub;
 
+    @Column(nullable = false)
+    private ZonedDateTime lastUpdateInGitHub;
+
     public String getOrg() {
         return org;
     }
 
-    public void setOrg(String org) {
+    public void setOrg(@NonNull final String org) {
         this.org = org;
     }
 
@@ -44,7 +48,7 @@ public class PullRequest extends AbstractEntity {
         return repository;
     }
 
-    public void setRepository(String repository) {
+    public void setRepository(@NonNull final String repository) {
         this.repository = repository;
     }
 
@@ -52,7 +56,7 @@ public class PullRequest extends AbstractEntity {
         return gitHubId;
     }
 
-    public void setGitHubId(long gitHubId) {
+    public void setGitHubId(@NonNull final long gitHubId) {
         this.gitHubId = gitHubId;
     }
 
@@ -60,7 +64,7 @@ public class PullRequest extends AbstractEntity {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(@NonNull final String title) {
         this.title = title;
     }
 
@@ -68,7 +72,7 @@ public class PullRequest extends AbstractEntity {
         return open;
     }
 
-    public void setOpen(boolean open) {
+    public void setOpen(@NonNull final boolean open) {
         this.open = open;
     }
 
@@ -76,7 +80,7 @@ public class PullRequest extends AbstractEntity {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(@NonNull final String author) {
         this.author = author;
     }
 
@@ -84,7 +88,7 @@ public class PullRequest extends AbstractEntity {
         return merged;
     }
 
-    public void setMerged(boolean merged) {
+    public void setMerged(@NonNull final boolean merged) {
         this.merged = merged;
     }
 
@@ -92,7 +96,15 @@ public class PullRequest extends AbstractEntity {
         return createdAtInGitHub;
     }
 
-    public void setCreatedAtInGitHub(ZonedDateTime createdAtInGitHub) {
+    public void setCreatedAtInGitHub(@NonNull final ZonedDateTime createdAtInGitHub) {
         this.createdAtInGitHub = createdAtInGitHub;
+    }
+
+    public ZonedDateTime getLastUpdateInGitHub() {
+        return lastUpdateInGitHub;
+    }
+
+    public void setLastUpdateInGitHub(@NonNull final ZonedDateTime lastUpdateInGitHub) {
+        this.lastUpdateInGitHub = lastUpdateInGitHub;
     }
 }

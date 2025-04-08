@@ -18,6 +18,7 @@ public class RepositoryService extends AbstractService<RepositoryDTO> {
         this.pullRequestService = Objects.requireNonNull(pullRequestService);
     }
 
+    @NonNull
     @Override
     public List<RepositoryDTO> getAll() {
         return pullRequestService.getAll()

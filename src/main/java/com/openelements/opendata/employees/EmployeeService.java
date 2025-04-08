@@ -16,8 +16,9 @@ public class EmployeeService extends AbstractEntityBasedService<EmployeeDTO, Emp
         super(EmployeeMapper.class, Employee.class);
     }
 
+    @NonNull
     @Override
-    protected @NonNull EntityManager getEntityManager() {
+    protected EntityManager getEntityManager() {
         return entityManager;
     }
 }
