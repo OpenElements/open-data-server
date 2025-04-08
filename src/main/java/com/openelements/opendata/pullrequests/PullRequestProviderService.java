@@ -69,7 +69,7 @@ public class PullRequestProviderService extends AbstractProviderService<PullRequ
             for (GHPullRequest pullRequest : list) {
                 final String org = pullRequest.getRepository().getOwnerName();
                 final String repo = pullRequest.getRepository().getName();
-                final long gitHubId = pullRequest.getId();
+                final long gitHubId = pullRequest.getNumber();
                 final String uuid = EMPLOYEE_UUID_PREFIX + org + "/" + repo + "/" + gitHubId;
                 final ZonedDateTime createdAt = ZonedDateTime.ofInstant(pullRequest.getCreatedAt().toInstant(),
                         ZoneOffset.UTC);
