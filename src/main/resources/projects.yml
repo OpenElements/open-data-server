@@ -58,9 +58,9 @@
   logo: bar
   propagate: true
   repositories: [ georgberky/dependency-update-maven-plugin, reficio/p2-maven-plugin,
-                  sparsick/maven-docker-extension, mojohaus/findbugs-maven-plugin,
+                  sparsick/maven-docker-extension, mojohaus/*,
                   khmarbaise/maven-deployer-extension, jbake-org/jbake-maven-plugin,
-                  versioneye/versioneye_maven_plugin ]
+                  versioneye/versioneye_maven_plugin  ]
 - name: Testcontainers
   identifier: testcontainers
   description: Testcontainers is an open source library for providing throwaway, lightweight instances of databases, message brokers, web browsers, or just about anything that ...
