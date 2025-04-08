@@ -59,14 +59,30 @@ public class ProjectService extends AbstractService<ProjectDTO> {
                                 return null;
                             }
                         };
-                        final String svgLogoForBrightBackground = base64ImageSupplier.apply(
-                                "svgLogoForBrightBackground");
-                        final String svgLogoForDarkBackground = base64ImageSupplier.apply(
-                                "svgLogoForDarkBackground");
-                        final String pngLogoForBrightBackground = base64ImageSupplier.apply(
-                                "pngLogoForBrightBackground");
-                        final String pngLogoForDarkBackground = base64ImageSupplier.apply(
-                                "pngLogoForDarkBackground");
+                        final String svgLogoForBrightBackground;
+                        if (node.has("svgLogoForBrightBackground")) {
+                            svgLogoForBrightBackground = node.get("svgLogoForBrightBackground").asText();
+                        } else {
+                            svgLogoForBrightBackground = null;
+                        }
+                        final String svgLogoForDarkBackground;
+                        if (node.has("svgLogoForDarkBackground")) {
+                            svgLogoForDarkBackground = node.get("svgLogoForDarkBackground").asText();
+                        } else {
+                            svgLogoForDarkBackground = null;
+                        }
+                        final String pngLogoForBrightBackground;
+                        if (node.has("pngLogoForBrightBackground")) {
+                            pngLogoForBrightBackground = node.get("pngLogoForBrightBackground").asText();
+                        } else {
+                            pngLogoForBrightBackground = null;
+                        }
+                        final String pngLogoForDarkBackground;
+                        if (node.has("pngLogoForDarkBackground")) {
+                            pngLogoForDarkBackground = node.get("pngLogoForDarkBackground").asText();
+                        } else {
+                            pngLogoForDarkBackground = null;
+                        }
 
                         final Set<String> matchingRepos = new HashSet<>();
                         final ArrayNode matchingReposNode = (ArrayNode) node.get("repositories");
