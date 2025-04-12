@@ -19,7 +19,6 @@ public class OrganizationService extends AbstractService<OrganizationDTO> {
             final JsonNode jsonNode = mapper.readTree(
                     ProjectService.class.getClassLoader().getResourceAsStream("organization.json"));
             final String uuid = jsonNode.get("uuid").asText();
-            ;
             final String name = jsonNode.get("name").asText();
             final String legalName = jsonNode.get("legalName").asText();
             final String streetAddress = jsonNode.get("streetAddress").asText();
