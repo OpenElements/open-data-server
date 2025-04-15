@@ -61,16 +61,16 @@ public class PullRequestProviderService extends AbstractProviderService<PullRequ
         try {
             log.info("Processing pull requests for author: {}", author);
             final GitHub github = new GitHubBuilder().withOAuthToken(gitHubToken).build();
-            final ZonedDateTime createdAfter;
+            final ZonedDateTime updatedAfter;
             if (lastUpdate.isBefore(MIN_TIME)) {
-                createdAfter = MIN_TIME;
+                updatedAfter = MIN_TIME;
             } else {
-                createdAfter = lastUpdate;
+                updatedAfter = lastUpdate;
             }
             final GHUser user = github.getUser(author);
             final PagedSearchIterable<GHPullRequest> list = github.searchPullRequests()
                     .author(user)
-                    .createdAfter(createdAfter.toLocalDate(), false)
+                    .updatedAfter(updatedAfter.toLocalDate(), false)
                     .list().withPageSize(100);
             for (GHPullRequest pullRequest : list) {
                 final String org = pullRequest.getRepository().getOwnerName();

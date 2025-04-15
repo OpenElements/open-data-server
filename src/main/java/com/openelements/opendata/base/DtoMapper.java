@@ -1,7 +1,7 @@
 package com.openelements.opendata.base;
 
 import java.util.List;
-import org.jspecify.annotations.NonNull;
+import org.mapstruct.MappingTarget;
 
 public interface DtoMapper<D extends DTO, E extends AbstractEntity> {
 
@@ -11,5 +11,9 @@ public interface DtoMapper<D extends DTO, E extends AbstractEntity> {
 
     List<E> dtoToEntity(Iterable<D> dtos);
 
-    List<D> entityToDto (Iterable<E> entities);
+    List<D> entityToDto(Iterable<E> entities);
+
+    E updateEntityFromDto(D dto, @MappingTarget E entity);
+
+    E updateEntity(E updated, @MappingTarget E toUpdate);
 }

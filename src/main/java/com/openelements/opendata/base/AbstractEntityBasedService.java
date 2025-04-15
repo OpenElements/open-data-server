@@ -1,12 +1,14 @@
 package com.openelements.opendata.base;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import org.jspecify.annotations.NonNull;
 import org.mapstruct.factory.Mappers;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,12 +46,33 @@ public abstract class AbstractEntityBasedService<T extends DTO, E extends Abstra
         return getMapper().entityToDto(allQuery.getResultList());
     }
 
+    protected Optional<E> findEntityByUuid(String uuid) {
+        final CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+        final CriteriaQuery<E> query = cb.createQuery(entityClass);
+        final Root<E> root = query.from(entityClass);
+        query.select(root).where(cb.equal(root.get("uuid"), uuid));
+
+        try {
+            return Optional.of(getEntityManager().createQuery(query).getSingleResult());
+        } catch (final NoResultException e) {
+            return Optional.empty();
+        }
+    }
+
     @Transactional
     public void updateDatabase(@NonNull final List<T> dtos) {
         Objects.requireNonNull(dtos, "dtos cannot be null").stream()
-                .filter(dtoObjects -> !containsWithUUID(dtoObjects.uuid()))
-                .map(dtoObjects -> getMapper().dtoToEntity(dtoObjects))
-                .forEach(getEntityManager()::persist);
+                .forEach(dto -> {
+                    if (dto.uuid() == null) {
+                        throw new IllegalArgumentException("UUID cannot be null");
+                    }
+                    findEntityByUuid(dto.uuid()).ifPresentOrElse(entity -> {
+                        final E updatedEntity = getMapper().updateEntityFromDto(dto, entity);
+                        getEntityManager().merge(updatedEntity);
+                    }, () -> {
+                        getEntityManager().persist(getMapper().dtoToEntity(dto));
+                    });
+                });
     }
 
     private boolean containsWithUUID(@NonNull String uuid) {
