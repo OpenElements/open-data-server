@@ -16,6 +16,7 @@ public record PullRequestDTO(
         @NonNull @Schema(description = "Creation time of the pull request in GitHub", example = "2025-03-23T21:03:13.123116+01:00", required = true) ZonedDateTime createdAtInGitHub,
         @NonNull @Schema(description = "Creation time of the pull request in GitHub", example = "2025-03-23T21:03:13.123116+01:00", required = true) ZonedDateTime lastUpdateInGitHub,
         @Schema(description = "If pull request is open", required = true) boolean open,
+        @Schema(description = "If pull request is in draft mode", required = true) boolean draft,
         @Schema(description = "If pull request is merged", required = true) boolean merged,
         @NonNull @Schema(description = "GitHub name of the author of the pull request", example = "octocat", required = true) String author) implements
         DTO {

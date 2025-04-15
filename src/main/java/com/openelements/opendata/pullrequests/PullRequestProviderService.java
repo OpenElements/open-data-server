@@ -85,6 +85,7 @@ public class PullRequestProviderService extends AbstractProviderService<PullRequ
                 final String title = pullRequest.getTitle();
                 final boolean open = pullRequest.getState().equals(GHIssueState.OPEN);
                 final boolean merged = pullRequest.isMerged();
+                final boolean draft = pullRequest.isDraft();
 
                 log.info("Processing pull request: {}", uuid);
 
@@ -97,6 +98,7 @@ public class PullRequestProviderService extends AbstractProviderService<PullRequ
                         createdAt,
                         lastUpdateInGitHub,
                         open,
+                        draft,
                         merged,
                         author
                 );

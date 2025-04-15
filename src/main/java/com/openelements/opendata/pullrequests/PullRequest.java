@@ -28,6 +28,9 @@ public class PullRequest extends AbstractEntity {
     private boolean merged;
 
     @Column(nullable = false)
+    private boolean draft;
+
+    @Column(nullable = false)
     private String author;
 
     @Column(nullable = false)
@@ -106,5 +109,13 @@ public class PullRequest extends AbstractEntity {
 
     public void setLastUpdateInGitHub(@NonNull final ZonedDateTime lastUpdateInGitHub) {
         this.lastUpdateInGitHub = lastUpdateInGitHub;
+    }
+
+    public boolean isDraft() {
+        return draft;
+    }
+
+    public void setDraft(boolean draft) {
+        this.draft = draft;
     }
 }
