@@ -156,3 +156,8 @@
   description: Jenkins is an open source automation server. It helps automate the parts of software development related to building, testing, and deploying, facilitating continuous integration, and continuous delivery.
   propagate: true
   repositories: [ jenkinsci/*, jenkins-x/* ]
+- name: ORT-Server
+  identifier: ort-server
+  description: The Eclipse Apoapsis project's ORT Server is a standalone application to deploy the OSS Review Toolkit as a service in the cloud.
+  propagate: true
+  repositories: [ eclipse-apoapsis/* ]
