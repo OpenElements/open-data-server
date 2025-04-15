@@ -109,4 +109,9 @@ public class PullRequestProviderService extends AbstractProviderService<PullRequ
         }
         return result;
     }
+
+    @Override
+    protected @NonNull List<String> getUUIDBlacklist() {
+        return List.of(EMPLOYEE_UUID_PREFIX + "support-and-care" + "/" + "jira-to-gh-issue-dummy-repo" + "/" + "1");
+    }
 }
