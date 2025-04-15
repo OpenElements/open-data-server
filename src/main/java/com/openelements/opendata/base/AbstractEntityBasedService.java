@@ -1,5 +1,7 @@
 package com.openelements.opendata.base;
 
+import static org.slf4j.LoggerFactory.getLogger;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
@@ -11,9 +13,12 @@ import java.util.Objects;
 import java.util.Optional;
 import org.jspecify.annotations.NonNull;
 import org.mapstruct.factory.Mappers;
+import org.slf4j.Logger;
 import org.springframework.transaction.annotation.Transactional;
 
 public abstract class AbstractEntityBasedService<T extends DTO, E extends AbstractEntity> extends AbstractService<T> {
+
+    private final Logger log = getLogger(getClass());
 
     private final DtoMapper<T, E> mapper;
 
@@ -67,9 +72,11 @@ public abstract class AbstractEntityBasedService<T extends DTO, E extends Abstra
                         throw new IllegalArgumentException("UUID cannot be null");
                     }
                     findEntityByUuid(dto.uuid()).ifPresentOrElse(entity -> {
+                        log.info("Updating entity with UUID: {}", dto.uuid());
                         final E updatedEntity = getMapper().updateEntityFromDto(dto, entity);
                         getEntityManager().merge(updatedEntity);
                     }, () -> {
+                        log.info("Creating new entity with UUID: {}", dto.uuid());
                         getEntityManager().persist(getMapper().dtoToEntity(dto));
                     });
                 });
