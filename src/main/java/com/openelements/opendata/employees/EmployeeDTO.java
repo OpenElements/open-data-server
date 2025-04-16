@@ -20,5 +20,4 @@ public record EmployeeDTO(
         Objects.requireNonNull(firstName, "name cannot be null");
         Objects.requireNonNull(lastName, "name cannot be null");
     }
-
 }

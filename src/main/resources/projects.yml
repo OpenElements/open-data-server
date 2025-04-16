@@ -1,6 +1,6 @@
 - name: Eclipse Adoptium
   identifier: adoptium
-  description: TODO
+  description: The main goal of Adoptium is to promote and support free and open-source high-quality runtimes and associated technology for use across the Java ecosystem.[4] To do so the Adoptium Working Group (WG) builds and provides OpenJDK based binaries under the Eclipse Temurin project.[5] In addition to Temurin the WG creates an open test suite for OpenJDK based binaries as part of the Eclipse AQAvit project.[6]
   pngLogoForBrightBackground: adoptium-logo.png
   propagate: true
   repositories: [ adoptium/* ]
@@ -11,7 +11,7 @@
   repositories: [ OpenElements/* ]
 - name: openmrs
   identifier: openmrs
-  description: TODO
+  description: OpenMRS is a collaborative open-source project to develop software to support the delivery of health care in developing countries.
   propagate: true
   repositories: [ openmrs/* ]
 - name: Hiero
@@ -22,17 +22,17 @@
   repositories: [ hiero-ledger/* ]
 - name: Eclipse Jakarta EE
   identifier: jakartaee
-  description: TODO
+  description: Jakarta EE, formerly Java EE, is a set of specifications, extending Java SE with specifications for enterprise features such as distributed computing and web services.
   propagate: true
   repositories: [ eclipse-ee4j/*, jakartaee/* ]
-- name: Humanitarian OpenStreetMap Team
+- name: Humanitarian OpenStreetMap
   identifier: hotosm
-  description: TODO
+  description: Humanitarian OpenStreetMap is an international project dedicated to humanitarian action and community-led development through participatory mapping, citizen-generated data, and technology.
   propagate: true
   repositories: [ hotosm/* ]
 - name: ODK-X Tool Suite
-  identifier: odk-x
-  description: TODO
+  identifier: odkx
+  description: ODK-X lets you build custom apps to gather, manage, and visualize your data on a mobile device in the field (without Internet) as well as the office.
   propagate: true
   repositories: [ odk-x/* ]
 - name: Support & Care by Open Elements
@@ -42,7 +42,7 @@
   repositories: [ support-and-care/* ]
 - name: Apache Maven
   identifier: maven
-  description: TODO
+  description: Maven is the mostly used build automation tool for Java projects.
   svgLogoForBrightBackground: maven-logo.svg
   propagate: true
   repositories: [ apache/*, codehaus-plexus/* ]
@@ -79,6 +79,8 @@
   description: Test framework with focus on messaging applications and Microservices.
   propagate: true
   repositories: [ citrusframework/* ]
+  pngLogoForBrightBackground: citrus-logo.png
+  pngLogoForDarkBackground: citrus-logo.png
 - name: Oracle Docker Images
   identifier: oracle-docker-images
   description: Dockerfiles to build Docker images for Oracle commercial products and Oracle sponsored open source projects.
