@@ -6,6 +6,7 @@ import org.jspecify.annotations.NonNull;
 public abstract class AbstractService<T extends DTO> {
 
     @NonNull
-    public abstract List<T> getAll();
+    public abstract List<T> getAll(@NonNull Language language);
 
+    public abstract long getCount();
 }

@@ -1,4 +1,4 @@
-package com.openelements.opendata.base;
+package com.openelements.opendata.base.db;
 
 import java.util.Optional;
 import org.jspecify.annotations.NonNull;
@@ -10,5 +10,6 @@ public interface UpdateEntityRepository extends Repository<UpdateEntity, Long> {
     @NonNull
     UpdateEntity save(@NonNull UpdateEntity updateEntity);
 
-    @NonNull Optional<UpdateEntity> findByType(@NonNull @Param("type") String type);
+    @NonNull
+    Optional<UpdateEntity> findByType(@NonNull @Param("type") String type);
 }

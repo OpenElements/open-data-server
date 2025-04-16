@@ -1,6 +1,6 @@
 package com.openelements.opendata.pullrequests;
 
-import com.openelements.opendata.base.AbstractEntity;
+import com.openelements.opendata.base.db.AbstractEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import java.time.ZonedDateTime;

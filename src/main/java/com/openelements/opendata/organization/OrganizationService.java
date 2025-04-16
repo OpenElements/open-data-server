@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.openelements.opendata.base.AbstractService;
+import com.openelements.opendata.base.Language;
 import com.openelements.opendata.project.ProjectService;
 import java.util.List;
 import org.jspecify.annotations.NonNull;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class OrganizationService extends AbstractService<OrganizationDTO> {
 
     @Override
-    public @NonNull List<OrganizationDTO> getAll() {
+    public @NonNull List<OrganizationDTO> getAll(Language language) {
         try {
             final ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
             final JsonNode jsonNode = mapper.readTree(
@@ -40,5 +41,10 @@ public class OrganizationService extends AbstractService<OrganizationDTO> {
         } catch (Exception e) {
             throw new RuntimeException("Error in reading stream", e);
         }
+    }
+
+    @Override
+    public long getCount() {
+        return getAll(Language.EN).size();
     }
 }

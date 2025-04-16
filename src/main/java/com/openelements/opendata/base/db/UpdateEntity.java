@@ -1,4 +1,4 @@
-package com.openelements.opendata.base;
+package com.openelements.opendata.base.db;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

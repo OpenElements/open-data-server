@@ -1,6 +1,7 @@
 package com.openelements.opendata.repositories;
 
 import com.openelements.opendata.base.AbstractService;
+import com.openelements.opendata.base.Language;
 import com.openelements.opendata.pullrequests.PullRequestService;
 import java.util.List;
 import java.util.Objects;
@@ -20,8 +21,8 @@ public class RepositoryService extends AbstractService<RepositoryDTO> {
 
     @NonNull
     @Override
-    public List<RepositoryDTO> getAll() {
-        return pullRequestService.getAll()
+    public List<RepositoryDTO> getAll(@NonNull final Language language) {
+        return pullRequestService.getAll(language)
                 .stream()
                 .filter(pr -> pr.merged())
                 .map(pr -> {
@@ -30,5 +31,10 @@ public class RepositoryService extends AbstractService<RepositoryDTO> {
                     final String uuid = REPOSITORY_UUID_PREFIX + "/" + org + "/" + repository;
                     return new RepositoryDTO(uuid, org, repository);
                 }).distinct().toList();
+    }
+
+    @Override
+    public long getCount() {
+        return getAll(Language.EN).size();
     }
 }

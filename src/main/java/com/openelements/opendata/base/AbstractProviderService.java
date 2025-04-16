@@ -1,5 +1,8 @@
 package com.openelements.opendata.base;
 
+import com.openelements.opendata.base.db.AbstractEntity;
+import com.openelements.opendata.base.db.UpdateEntity;
+import com.openelements.opendata.base.db.UpdateEntityRepository;
 import java.time.Instant;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
@@ -11,32 +14,32 @@ import java.util.function.Supplier;
 import org.jspecify.annotations.NonNull;
 import org.springframework.transaction.annotation.Transactional;
 
-public abstract class AbstractProviderService<T extends DTO> implements Supplier<List<T>> {
+public abstract class AbstractProviderService<E extends AbstractEntity> implements Supplier<List<E>> {
 
     private final static ZonedDateTime MIN_TIME = Instant.ofEpochMilli(Long.MIN_VALUE).atZone(ZoneOffset.UTC);
 
-    private final Class<T> dtoClass;
+    private final Class<E> entityClass;
 
     private final UpdateEntityRepository updateRepository;
 
-    public AbstractProviderService(@NonNull final Class<T> dtoClass,
+    public AbstractProviderService(@NonNull final Class<E> entityClass,
             @NonNull final UpdateEntityRepository updateRepository) {
-        this.dtoClass = Objects.requireNonNull(dtoClass);
+        this.entityClass = Objects.requireNonNull(entityClass);
         this.updateRepository = Objects.requireNonNull(updateRepository);
     }
 
     @Transactional
     @Override
     @NonNull
-    public List<T> get() {
+    public List<E> get() {
         final ZonedDateTime startOfUpdate = ZonedDateTime.now();
-        final String type = dtoClass.getSimpleName();
+        final String type = entityClass.getSimpleName();
         final Optional<UpdateEntity> optionalUpdateEntity = updateRepository.findByType(type);
         final ZonedDateTime lastUpdateTime = optionalUpdateEntity
                 .map(updateEntity -> updateEntity.getLastUpdate())
                 .orElse(MIN_TIME);
-        final List<T> result = getAvailableData(lastUpdateTime).stream()
-                .filter(dto -> !getUUIDBlacklist().contains(dto.uuid()))
+        final List<E> result = getAvailableData(lastUpdateTime).stream()
+                .filter(entity -> !getUUIDBlacklist().contains(entity.getUuid()))
                 .toList();
         final UpdateEntity entity = optionalUpdateEntity.orElseGet(() -> {
             final UpdateEntity updateEntity = new UpdateEntity();
@@ -56,5 +59,5 @@ public abstract class AbstractProviderService<T extends DTO> implements Supplier
     }
 
     @NonNull
-    protected abstract List<T> getAvailableData(@NonNull ZonedDateTime lastUpdateTime);
+    protected abstract List<E> getAvailableData(@NonNull ZonedDateTime lastUpdateTime);
 }

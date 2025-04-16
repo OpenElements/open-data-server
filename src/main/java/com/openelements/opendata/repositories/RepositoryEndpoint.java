@@ -1,10 +1,14 @@
 package com.openelements.opendata.repositories;
 
+import com.openelements.opendata.base.HttpUtils;
+import com.openelements.opendata.base.Language;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Objects;
 import org.jspecify.annotations.NonNull;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,14 +25,16 @@ public class RepositoryEndpoint {
     @NonNull
     @GetMapping(value = "/repositories", produces = {"application/json"})
     @Operation(summary = "Endpoint to get information about all repositories")
-    public List<RepositoryDTO> getPullRequests() {
-        return repositoryService.getAll();
+    public ResponseEntity<List<RepositoryDTO>> getPullRequests(@NonNull HttpServletRequest request) {
+        final Language language = HttpUtils.getLanguageFromHeader(request);
+        List<RepositoryDTO> result = repositoryService.getAll(language);
+        return HttpUtils.buildResponse(result, language);
     }
 
     @GetMapping(value = "/repositories/count", produces = {"application/json"})
     @Operation(summary = "Endpoint to get the number of repositories")
-    public int getCount() {
-        return repositoryService.getAll().size();
+    public long getCount() {
+        return repositoryService.getCount();
     }
 
 }

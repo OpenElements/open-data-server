@@ -4,7 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.openelements.opendata.base.AbstractProviderService;
-import com.openelements.opendata.base.UpdateEntityRepository;
+import com.openelements.opendata.base.db.I18nString;
+import com.openelements.opendata.base.db.UpdateEntityRepository;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
 @Service
-public class EmployeeProviderService extends AbstractProviderService<EmployeeDTO> {
+public class EmployeeProviderService extends AbstractProviderService<Employee> {
 
     private final static String EMPLOYEE_UUID_PREFIX = "Employee-";
 
@@ -22,11 +23,11 @@ public class EmployeeProviderService extends AbstractProviderService<EmployeeDTO
 
     @Autowired
     public EmployeeProviderService(@NonNull final UpdateEntityRepository updateRepository) {
-        super(EmployeeDTO.class, updateRepository);
+        super(Employee.class, updateRepository);
     }
 
     @Override
-    public List<EmployeeDTO> getAvailableData(@NonNull final ZonedDateTime lastUpdate) {
+    public List<Employee> getAvailableData(@NonNull final ZonedDateTime lastUpdate) {
         final RestClient restClient = RestClient.create();
         final String jsonString = restClient.get()
                 .uri(JSON_URL)
@@ -35,7 +36,7 @@ public class EmployeeProviderService extends AbstractProviderService<EmployeeDTO
         try {
             final JsonNode jsonNode = new ObjectMapper().readTree(jsonString);
             final ArrayNode arrayNode = (ArrayNode) jsonNode;
-            final List<EmployeeDTO> employees = new ArrayList<>();
+            final List<Employee> employees = new ArrayList<>();
             for (JsonNode node : arrayNode) {
                 final String id = node.get("id").asText();
                 final String firstName = node.get("firstName").asText();
@@ -57,9 +58,13 @@ public class EmployeeProviderService extends AbstractProviderService<EmployeeDTO
                         }
                     }
                 }
-                final EmployeeDTO dto = new EmployeeDTO(EMPLOYEE_UUID_PREFIX + id, firstName, lastName, role,
-                        gitHubUsername);
-                employees.add(dto);
+                final Employee entity = new Employee();
+                entity.setUuid(EMPLOYEE_UUID_PREFIX + id);
+                entity.setFirstName(firstName);
+                entity.setLastName(lastName);
+                entity.setRole(new I18nString(role));
+                entity.setGitHubUsername(gitHubUsername);
+                employees.add(entity);
             }
             return employees;
         } catch (final Exception e) {

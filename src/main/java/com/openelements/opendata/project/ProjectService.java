@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.openelements.opendata.base.AbstractService;
+import com.openelements.opendata.base.Language;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class ProjectService extends AbstractService<ProjectDTO> {
 
     @NonNull
     @Override
-    public List<ProjectDTO> getAll() {
+    public List<ProjectDTO> getAll(Language language) {
         try {
             final List<ProjectDTO> result = new ArrayList<>();
             final ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
@@ -101,7 +102,8 @@ public class ProjectService extends AbstractService<ProjectDTO> {
         }
     }
 
-    private String getImageAsBase64(final String name) {
-        return null;
+    @Override
+    public long getCount() {
+        return getAll(Language.EN).size();
     }
 }

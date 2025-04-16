@@ -1,7 +1,8 @@
 package com.openelements.opendata.pullrequests;
 
 import com.openelements.opendata.base.AbstractProviderService;
-import com.openelements.opendata.base.UpdateEntityRepository;
+import com.openelements.opendata.base.Language;
+import com.openelements.opendata.base.db.UpdateEntityRepository;
 import com.openelements.opendata.employees.EmployeeDTO;
 import com.openelements.opendata.employees.EmployeeService;
 import java.time.ZoneOffset;
@@ -23,7 +24,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PullRequestProviderService extends AbstractProviderService<PullRequestDTO> {
+public class PullRequestProviderService extends AbstractProviderService<PullRequest> {
 
     private final static Logger log = LoggerFactory.getLogger(PullRequestProviderService.class);
 
@@ -38,14 +39,14 @@ public class PullRequestProviderService extends AbstractProviderService<PullRequ
 
     public PullRequestProviderService(@NonNull final UpdateEntityRepository updateRepository,
             @NonNull final EmployeeService employeeService) {
-        super(PullRequestDTO.class, updateRepository);
+        super(PullRequest.class, updateRepository);
         this.employeeService = Objects.requireNonNull(employeeService);
     }
 
     @NonNull
     @Override
-    public List<PullRequestDTO> getAvailableData(@NonNull ZonedDateTime lastUpdate) {
-        return employeeService.getAll().stream()
+    public List<PullRequest> getAvailableData(@NonNull ZonedDateTime lastUpdate) {
+        return employeeService.getAll(Language.EN).stream()
                 .filter(employee -> employee.gitHubUsername() != null)
                 .map(EmployeeDTO::gitHubUsername)
                 .flatMap(username -> getAvailablePullRequestsForAuthor(username, lastUpdate).stream())
@@ -53,11 +54,11 @@ public class PullRequestProviderService extends AbstractProviderService<PullRequ
     }
 
     @NonNull
-    public List<PullRequestDTO> getAvailablePullRequestsForAuthor(@NonNull final String author,
+    public List<PullRequest> getAvailablePullRequestsForAuthor(@NonNull final String author,
             @NonNull final ZonedDateTime lastUpdate) {
         Objects.requireNonNull(author, "author cannot be null");
         Objects.requireNonNull(lastUpdate, "lastUpdate cannot be null");
-        final List<PullRequestDTO> result = new ArrayList<>();
+        final List<PullRequest> result = new ArrayList<>();
         try {
             log.info("Processing pull requests for author: {}", author);
             final GitHub github = new GitHubBuilder().withOAuthToken(gitHubToken).build();
@@ -89,19 +90,18 @@ public class PullRequestProviderService extends AbstractProviderService<PullRequ
 
                 log.info("Processing pull request: {}", uuid);
 
-                final PullRequestDTO pr = new PullRequestDTO(
-                        uuid,
-                        org,
-                        repo,
-                        gitHubId,
-                        title,
-                        createdAt,
-                        lastUpdateInGitHub,
-                        open,
-                        draft,
-                        merged,
-                        author
-                );
+                PullRequest pr = new PullRequest();
+                pr.setUuid(uuid);
+                pr.setOrg(org);
+                pr.setRepository(repo);
+                pr.setGitHubId(gitHubId);
+                pr.setTitle(title);
+                pr.setCreatedAt(createdAt);
+                pr.setLastUpdateInGitHub(lastUpdateInGitHub);
+                pr.setOpen(open);
+                pr.setDraft(draft);
+                pr.setMerged(merged);
+                pr.setAuthor(author);
                 result.add(pr);
             }
         } catch (final Exception e) {

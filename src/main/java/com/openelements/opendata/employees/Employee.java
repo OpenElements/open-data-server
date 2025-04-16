@@ -1,8 +1,11 @@
 package com.openelements.opendata.employees;
 
-import com.openelements.opendata.base.AbstractEntity;
+import com.openelements.opendata.base.db.AbstractEntity;
+import com.openelements.opendata.base.db.I18nString;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -15,8 +18,8 @@ public class Employee extends AbstractEntity {
     @Column(nullable = false)
     private String lastName;
 
-    @Column
-    private String role;
+    @OneToOne(cascade = {CascadeType.ALL})
+    private I18nString role;
 
     @Column
     private String gitHubUsername;
@@ -37,11 +40,11 @@ public class Employee extends AbstractEntity {
         this.lastName = lastName;
     }
 
-    public String getRole() {
+    public I18nString getRole() {
         return role;
     }
 
-    public void setRole(final @Nullable String role) {
+    public void setRole(I18nString role) {
         this.role = role;
     }
 

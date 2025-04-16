@@ -1,6 +1,6 @@
 package com.openelements.opendata.pullrequests;
 
-import com.openelements.opendata.base.AbstractEntityBasedService;
+import com.openelements.opendata.base.db.AbstractEntityBasedService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.jspecify.annotations.NonNull;
